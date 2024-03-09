@@ -1,29 +1,21 @@
 import { Post } from "../modals/Post";
 import { useState, useEffect } from "react";
-import axios from "axios";
-import Cookies from "js-cookie";
+import { fetchQuestions } from "../api";
 
 export function Feed() {
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    const fetchQuestions = async () => {
-      const token = Cookies.get('jwtToken');
-      try {
-        const res = await axios.get('http://localhost:3000/user/show-user-feed', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-
-        console.log(res.data.questions);
-        setQuestions(res.data.questions);
-      } catch(e) {
-        console.error(e.message);
+    try {
+      const getQuestions = async () => {
+        const response = await fetchQuestions();
+        setQuestions(response.data.questions);
       }
-    };
 
-    fetchQuestions();
+      getQuestions();
+    } catch(e) {
+      console.error(e.message);
+    }
   }, []);
   
   return <div className='container'>

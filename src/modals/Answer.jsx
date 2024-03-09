@@ -1,16 +1,10 @@
-import axios from "axios";
-import Cookies from "js-cookie";
 import { formatPostedTime, shortenUserName } from "../utils";
+import { deleteAnswer } from "../api";
 
 export function Answer({ postId, answerId, answer, userName, postedAt, setPost, editAnswer }) {
-  async function deleteAnswer() {
+  async function handleDeleteAnswer() {
     try {
-      const jwtToken = Cookies.get('jwtToken');
-      const response = await axios.delete(`http://localhost:3000/user/delete-answer/${postId}/${answerId}`, {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`
-        }
-      });
+      const response = await deleteAnswer(postId, answerId);
       setPost(null, response.data.answers);
     } catch(e) {
       alert(e.response.data.msg);
@@ -34,7 +28,7 @@ export function Answer({ postId, answerId, answer, userName, postedAt, setPost, 
     </div>
     <div className="answer-footer">
       <a onClick={handleEdit}>Edit</a>
-      <a onClick={deleteAnswer}>Delete</a>
+      <a onClick={handleDeleteAnswer}>Delete</a>
     </div>
   </div>
 }

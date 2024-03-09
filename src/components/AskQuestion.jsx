@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import Cookies from "js-cookie";
 import { useNavigate, useParams } from "react-router-dom";
+import { getPost, submitPost, updatePost } from "../api";
 
 export function AskQuestion() {
   const { postId } = useParams();
@@ -17,9 +16,8 @@ export function AskQuestion() {
     setIsEditMode(true);
     async function getQuestion() {
       try {
-        const res = await axios.get(`http://localhost:3000/user/get-post/${postId}`);
-        const post = res.data.post;
-        console.log(post);
+        const response = await getPost(postId);
+        const post = response.data.post;
         setFormData({
           title: post.title,
           description: post.description
@@ -40,13 +38,7 @@ export function AskQuestion() {
 
   const submitQuestion = async () => {
     try {
-      const jwtToken = Cookies.get('jwtToken');
-      const response = await axios.post('http://localhost:3000/user/ask-question', formData, {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-          "Content-Type": 'application/json'
-        }
-      }); 
+      const response = await submitPost(formData);
       console.log(response.data);
       navigate('/');
     } catch(e) {
@@ -56,13 +48,7 @@ export function AskQuestion() {
 
   const updateQuestion = async () => {
     try {
-      const jwtToken = Cookies.get('jwtToken');
-      const response = await axios.put('http://localhost:3000/user/update-question', {...formData, postId: postId}, {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-          "Content-Type": 'application/json'
-        }
-      }); 
+      const response = await updatePost({...formData, postId: postId});
       console.log(response.data);
       navigate(`/posts/${postId}`);
     } catch(e) {

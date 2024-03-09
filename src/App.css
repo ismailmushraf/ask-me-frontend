@@ -280,6 +280,8 @@ h2 {
 
 .ask-question-page {
    font-family: "Inter", sans-serif;
+   max-width: 950px;
+   width: 100%;
 }
 
 #instruction-box {
@@ -287,8 +289,6 @@ h2 {
    padding: 8px 16px;
    border-radius: 8px;
    background-color: #ECF5FD;
-   max-width: 950px;
-   width: 100%;
    margin-bottom: 16px;
 }
 

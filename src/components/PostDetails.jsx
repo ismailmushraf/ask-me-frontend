@@ -1,8 +1,7 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import Cookies from "js-cookie";
 import { Answer } from "../modals/Answer";
+import { getPost, deletePost, submitAnswer, updateAnswer } from "../api";
 
 export function PostDetails() {
   const { postId } = useParams();
@@ -15,14 +14,13 @@ export function PostDetails() {
   const postAnswerBtnRef = useRef();
   const navigate = useNavigate();
   let timeout = null;
-  const jwtToken = Cookies.get('jwtToken'); 
 
   useEffect(() => {
     async function getQuestion() {
       try {
-        const res = await axios.get(`http://localhost:3000/user/get-post/${postId}`);
-        const post = res.data.post;
-        const answers = res.data.answers;
+        const response = await getPost(postId);
+        const post = response.data.post;
+        const answers = response.data.answers;
         setFormData(post);
         setAnswers(answers);
       } catch(e) {
@@ -33,41 +31,35 @@ export function PostDetails() {
     getQuestion();
   }, [postId]);
 
-  function submitAnswer() {
-    axios.put('http://localhost:3000/user/submit-answer', { "postId": postId, "answer": answer}, {
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-        "Content-Type": 'application/json'
-      }
-    }).then((res) => {
-      setPost(res.data.post, res.data.answers);
-      answerInputRef.current.value = '';
-    }).catch(e => alert(e.response.data.msg));
+  function handleSubmitAnswer() {
+    submitAnswer(postId, answer)
+      .then(({ post, answers }) => {
+        setPost(post, answers);
+        answerInputRef.current.value = '';
+      }).catch(error => {
+        alert(error);
+      });
   }
 
-  function updateAnswer() {
-    axios.put('http://localhost:3000/user/edit-answer', { "postId": postId, "answerId": currentEditAnswerId, "answer": answer}, {
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-        "Content-Type": 'application/json'
-      }
-    }).then((res) => {
-      setPost(null, res.data.answers);
-      cancelEdit();
-    }).catch(e => alert(e.response.data.msg));
+  function handleUpdateAnswer() {
+    updateAnswer(postId, currentEditAnswerId, answer)
+      .then(({ answers }) => {
+        setPost(null, answers);
+        cancelEdit();
+      }).catch(error => alert(error));
   }
 
   function handlePostDelete() {
     let isDelete = confirm("Do you want to delete the post");
     if (isDelete) {
-      axios.delete(`http://localhost:3000/user/delete-post/${postId}`, {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`
-        }
-      }).then(response => {
-        alert(response.data.msg);
-        navigate('/');
-      }).catch(e => console.error(e.response.data.msg));
+      deletePost(postId)
+        .then(({ msg }) => {
+          alert(msg);
+          navigate('/');
+        }).catch(error => {
+          const errorMessage = error.response ? error.response.data.msg : 'Unknown error';
+          alert(`Error: ${errorMessage}`);
+        });
     }
   }
 
@@ -98,8 +90,8 @@ export function PostDetails() {
   }
 
   function postAnswer() {
-    if (isEditMode) updateAnswer();
-    else submitAnswer();
+    if (isEditMode) handleUpdateAnswer();
+    else handleSubmitAnswer();
   }
 
   return <div className="container">

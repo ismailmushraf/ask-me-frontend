@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios';
+import { signUp } from '../api';
 
 export function SignUp() {
   const navigate = useNavigate();
@@ -24,12 +24,9 @@ export function SignUp() {
     try {
       const { firstname, lastname, ...restFormData } = formData;
       const fullname = `${firstname} ${lastname}`;
-      const response = await axios.post('http://localhost:3000/user/signup', { ...restFormData, fullname }, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
 
+      const response = await signUp({ ...restFormData, fullname });
+      
       if (response.status === 200) {
         alert(response.data.msg);
         navigate('/signin');

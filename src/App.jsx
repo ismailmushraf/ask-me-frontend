@@ -6,7 +6,6 @@ import { SignUp } from './components/SignUp';
 import { SignIn } from './components/SignIn';
 import { Navbar } from './components/Navbar';
 import { Feed } from './components/Feed';
-import { AllUsers } from './components/AllUsers';
 import { AskQuestion } from './components/AskQuestion';
 import { PostDetails } from './components/PostDetails';
 

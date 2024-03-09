@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useAuth } from "../AuthContext";
+import { signIn } from "../api";
 
 export function SignIn() {
   const navigate = useNavigate();
@@ -28,12 +28,7 @@ export function SignIn() {
 
   const handleSignIn = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/user/signin', formData, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-      });
-
+      const response = await signIn(formData);
       if (response.status === 200) {
         login(response.data['jwt-token']);
         alert('Logged in Succesfully');
