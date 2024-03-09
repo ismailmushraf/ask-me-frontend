@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'https://askus-backend-10903e81559c.herokuapp.com/';
 const jwtToken = Cookies.get('jwtToken');
 
 export const signIn = async (formData) => {
