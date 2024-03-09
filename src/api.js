@@ -2,7 +2,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const API_BASE_URL = 'https://askus-backend-10903e81559c.herokuapp.com';
-const jwtToken = Cookies.get('jwtToken');
 
 export const signIn = async (formData) => {
   try {
@@ -32,6 +31,7 @@ export const signUp = async (formData) => {
 
 export const fetchQuestions = async () => {
   try {
+    const jwtToken = Cookies.get('jwtToken');
     const response = await axios.get(`${API_BASE_URL}/user/show-user-feed`, {
       headers: {
         Authorization: `Bearer ${jwtToken}`
@@ -55,6 +55,7 @@ export const getPost = async (postId) => {
 
 export const submitPost = async (formData) => {
   try {
+    const jwtToken = Cookies.get('jwtToken');
     const response = await axios.post(`${API_BASE_URL}/user/ask-question`, formData, {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -69,6 +70,7 @@ export const submitPost = async (formData) => {
 
 export const updatePost = async (formData) => {
   try {
+      const jwtToken = Cookies.get('jwtToken');
       const response = await axios.put(`${API_BASE_URL}/user/update-question`, formData, {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
@@ -83,6 +85,7 @@ export const updatePost = async (formData) => {
 
 export const deletePost = (postId) => {
   return new Promise((resolve, reject) => {
+      const jwtToken = Cookies.get('jwtToken');
       axios.delete(
         `${API_BASE_URL}/user/delete-post/${postId}`,
         {
@@ -103,6 +106,7 @@ export const deletePost = (postId) => {
 
 export const submitAnswer = (postId, answer) => {
   return new Promise((resolve, reject) => {
+      const jwtToken = Cookies.get('jwtToken');
       axios.put(
         `${API_BASE_URL}/user/submit-answer`,
         { postId, answer },
@@ -125,6 +129,7 @@ export const submitAnswer = (postId, answer) => {
 
 export const updateAnswer = (postId, answerId, answer) => {
   return new Promise((resolve, reject) => {
+      const jwtToken = Cookies.get('jwtToken');
       axios.put(
         `${API_BASE_URL}/user/edit-answer`,
         { postId, answerId, answer },
@@ -147,6 +152,7 @@ export const updateAnswer = (postId, answerId, answer) => {
 
 export const deleteAnswer = async (postId, answerId) => {
   try {
+    const jwtToken = Cookies.get('jwtToken');
     const response = await axios.delete(`${API_BASE_URL}/user/delete-answer/${postId}/${answerId}`, {
       headers: {
         Authorization: `Bearer ${jwtToken}`
