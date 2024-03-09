@@ -1,0 +1,90 @@
+.post {
+   border: 2px solid #ddd;
+   border-radius: 8px;
+   padding: 16px;
+   margin-top: 16px;
+   width: 900px;
+   max-width: 100%;
+   background: white;
+   box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
+   font-family: "Inter", sans-serif;
+}
+
+.post-title {
+   font-size: 1.5rem;
+   font-weight: 600;
+   color: #000;
+   text-decoration: underline;
+}
+
+.post-desc {
+   color: gray;
+   font-size: 0.9rem;
+   margin-top: 8px;
+}
+
+.post-footer {
+   font-size: 0.9rem;
+   margin-top: 16px;
+   color: gray;
+}
+
+.post-footer-item {
+   margin-right: 16px;
+}
+
+.answer-card {
+   border-top: 1px solid rgb(229 231 235);
+   width: 1000px;
+   max-width: 100%;
+   padding: 16px 0px;
+}
+
+.answer-header {
+   display: flex;
+   margin-bottom: 16px;
+}
+
+.user-avatar {
+   border-radius: 50%;
+   box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+   width: 3rem;
+   margin-right: 16px;
+}
+
+.answer-details {
+   display: flex;
+   flex-direction: column;
+   font-family: "Inter", sans-serif;
+}
+
+.answer-username {
+   color: #2563EB;
+   font-weight: 600;
+   margin-top: 4px;
+}
+
+.answer-postTime {
+   color: #6B7280;
+   font-size: 0.875rem;
+   font-weight: 500;
+   line-height: 1.25rem;
+}
+
+.answer-main {
+   padding: 8px;
+   word-wrap: break-word;
+}
+
+.answer-footer {
+   margin-top: 8px;
+   color: gray;
+}
+
+.answer-footer > a {
+   margin-right: 8px;
+}
+
+.answer-footer > a:hover {
+   cursor: pointer;
+}
