@@ -32,18 +32,7 @@ export function SignUp() {
         navigate('/signin');
       }
     } catch(e) {
-      if (e.response) {
-        if (Array.isArray(e.response.data.msg)) {
-          let message = "";
-          for (let item of e.response.data.msg) {
-            message += (item.message + "\n");
-          }
-          alert(message);
-        } else {
-          alert(e.response.data)
-        }
-      }
-      console.error('Error during sign-up: ', e.response.data);
+      console.error('Error during sign-up');
     }
   }
 

@@ -12,7 +12,7 @@ export const signIn = async (formData) => {
     });
     return response;
   } catch(e) {
-    console.error(e.response.data);
+    alert(e.response.data);
   }
 }
 
@@ -25,7 +25,7 @@ export const signUp = async (formData) => {
     });
     return response;
   } catch(e) {
-    console.error(e.response.data);
+    alert(e.response.data);
   }
 }
 
@@ -39,7 +39,7 @@ export const fetchQuestions = async () => {
     });
     return response;
   } catch(e) {
-    console.error(e.response.data);
+    alert(e.response.data);
   }
 };
 
@@ -47,9 +47,8 @@ export const getPost = async (postId) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/user/get-post/${postId}`);
     return response;
-    
   } catch(e) {
-    console.error(e.response.data);
+    alert(e.response.data);
   }
 }
 
@@ -64,7 +63,7 @@ export const submitPost = async (formData) => {
     }); 
     return response;
   } catch(e) {
-    console.error(e.response.data);
+    alert(e.response.data);
   }
 }
 
@@ -79,7 +78,7 @@ export const updatePost = async (formData) => {
       }); 
       return response;
   } catch(e) {
-    console.error(e.response.data);
+    alert(e.response.data);
   }
 }
 
@@ -95,11 +94,11 @@ export const deletePost = (postId) => {
         }
       )
         .then((response) => {
-          const msg = response.data.msg;
+          const msg = response.data;
           resolve({ msg });
         })
         .catch((error) => {
-          reject(error.response ? error.response.data.msg : 'Unknown error');
+          reject(error.response ? error.response.data : 'Unknown error');
         });
     });
 }
@@ -122,7 +121,7 @@ export const submitAnswer = (postId, answer) => {
           resolve({ post, answers });
         })
         .catch((error) => {
-          reject(error.response ? error.response.data.msg : 'Unknown error');
+          reject(error.response ? error.response.data : 'Unknown error');
         });
     });
 }
@@ -145,7 +144,7 @@ export const updateAnswer = (postId, answerId, answer) => {
           resolve({ answers });
         })
         .catch((error) => {
-          reject(error.response ? error.response.data.msg : 'Unknown error');
+          reject(error.response ? error.response.data : 'Unknown error');
         });
     });
 }
@@ -160,7 +159,7 @@ export const deleteAnswer = async (postId, answerId) => {
     });
     return response;
   } catch(e) {
-    console.error(e);
+    alert(e.response.data);
   }
 }
 

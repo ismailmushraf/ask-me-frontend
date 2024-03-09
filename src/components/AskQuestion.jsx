@@ -39,20 +39,20 @@ export function AskQuestion() {
   const submitQuestion = async () => {
     try {
       const response = await submitPost(formData);
-      console.log(response.data);
+      alert(response.data);
       navigate('/');
     } catch(e) {
-      console.error(e.response.data);
+      console.log('Error happened');
     }
   }
 
   const updateQuestion = async () => {
     try {
       const response = await updatePost({...formData, postId: postId});
-      console.log(response.data);
+      alert(response.data);
       navigate(`/posts/${postId}`);
     } catch(e) {
-      console.error(e.response.data.msg);
+      console.log('Error happened');
     }
   }
 

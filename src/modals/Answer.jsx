@@ -7,7 +7,7 @@ export function Answer({ postId, answerId, answer, userName, postedAt, setPost, 
       const response = await deleteAnswer(postId, answerId);
       setPost(null, response.data.answers);
     } catch(e) {
-      alert(e.response.data.msg);
+      alert(e.response.data);
     }
   }
 

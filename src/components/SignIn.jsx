@@ -33,11 +33,9 @@ export function SignIn() {
         login(response.data['jwt-token']);
         alert('Logged in Succesfully');
         navigate('/');
-      } else {
-        alert("Error happened " + response.data);
-      }
+      } 
     } catch(e) {
-      console.error('Error happend ' + e.message);
+      console.error('Error happend during sign in');
     }
   };
   return <div className='signup'>
