@@ -96,6 +96,7 @@ export function PostDetails() {
 
   return <div className="container">
     <div className="post-details">
+      {formData && (
       <div className="post-details-box">
         <div className="post-details-title">{ formData.title }</div>
         <div className="post-details-desc">{ formData.description }</div>
@@ -106,7 +107,8 @@ export function PostDetails() {
           <a onClick={handlePostDelete}>Delete</a>
         </div>
       </div>
-      {answers.map(answer => (
+      )}
+      {answers && answers.map(answer => (
         <Answer key={answer._id} postId={postId} answerId={answer._id} answer={answer.answer} postedAt={answer.createdAt} userName={answer.userId.fullname} setPost={setPost} editAnswer={editAnswer}/>
       ))}
       <div style={{borderBottom: "1px solid rgb(229 231 235)", maxWidth: "100%", width: "1000px"}}></div>
