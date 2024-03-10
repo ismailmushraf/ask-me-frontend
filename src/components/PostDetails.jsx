@@ -7,6 +7,7 @@ export function PostDetails() {
   const { postId } = useParams();
   const [formData, setFormData] = useState({});
   const [answers, setAnswers] = useState([]);
+  const [user, setUser] = useState({});
   const [answer, setAnswer] = useState('');
   const [isEditMode, setIsEditMode] = useState(false);
   const [currentEditAnswerId, setCurrentEditAnswerId] = useState(null);
@@ -21,8 +22,10 @@ export function PostDetails() {
         const response = await getPost(postId);
         const post = response.data.post;
         const answers = response.data.answers;
+        const user = response.data.user;
         setFormData(post);
         setAnswers(answers);
+        setUser(user);
       } catch(e) {
         console.error(e);
       }
@@ -105,6 +108,7 @@ export function PostDetails() {
             Edit
           </Link>
           <a onClick={handlePostDelete}>Delete</a>
+          <div style={{float: "right", color: "gray", marginRight: "8px"}}>By: {user.fullname}</div>
         </div>
       </div>
       )}

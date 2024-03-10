@@ -45,7 +45,12 @@ export const fetchQuestions = async () => {
 
 export const getPost = async (postId) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/user/get-post/${postId}`);
+    const jwtToken = Cookies.get('jwtToken');
+    const response = await axios.get(`${API_BASE_URL}/user/get-post/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`
+      }
+    });
     return response;
   } catch(e) {
     alert(e.response.data);
